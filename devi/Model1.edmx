@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="datbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Consultanti">
+          <Key>
+            <PropertyRef Name="Id_consultanti" />
+          </Key>
+          <Property Name="Id_consultanti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prenume" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Parola" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id_orase" />
+          </Key>
+          <Property Name="Id_orase" Type="int" Nullable="false" />
+          <Property Name="Id_consultanti" Type="int" Nullable="false" />
+          <Property Name="City" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Table__Id_consul__36B12243">
+          <End Role="Consultanti" Type="Self.Consultanti" Multiplicity="1" />
+          <End Role="Table" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultanti">
+              <PropertyRef Name="Id_consultanti" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="Id_consultanti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="datbModelStoreContainer">
+          <EntitySet Name="Consultanti" EntityType="Self.Consultanti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Table__Id_consul__36B12243" Association="Self.FK__Table__Id_consul__36B12243">
+            <End Role="Consultanti" EntitySet="Consultanti" />
+            <End Role="Table" EntitySet="Table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="datbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Consultanti">
+          <Key>
+            <PropertyRef Name="Id_consultanti" />
+          </Key>
+          <Property Name="Id_consultanti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tables" Relationship="datbModel.FK__Table__Id_consul__36B12243" FromRole="Consultanti" ToRole="Table" />
+        </EntityType>
+        <EntityContainer Name="datbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Consultantis" EntityType="Self.Consultanti" />
+          <EntitySet Name="Tables" EntityType="datbModel.Table" />
+          <AssociationSet Name="FK__Table__Id_consul__36B12243" Association="datbModel.FK__Table__Id_consul__36B12243">
+            <End Role="Consultanti" EntitySet="Consultantis" />
+            <End Role="Table" EntitySet="Tables" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id_orase" />
+          </Key>
+          <Property Name="Id_orase" Type="Int32" Nullable="false" />
+          <Property Name="Id_consultanti" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Consultanti" Relationship="datbModel.FK__Table__Id_consul__36B12243" FromRole="Table" ToRole="Consultanti" />
+        </EntityType>
+        <Association Name="FK__Table__Id_consul__36B12243">
+          <End Type="datbModel.Consultanti" Role="Consultanti" Multiplicity="1" />
+          <End Type="datbModel.Table" Role="Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultanti">
+              <PropertyRef Name="Id_consultanti" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="Id_consultanti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="datbModelStoreContainer" CdmEntityContainer="datbEntities">
+          <EntitySetMapping Name="Consultantis">
+            <EntityTypeMapping TypeName="datbModel.Consultanti">
+              <MappingFragment StoreEntitySet="Consultanti">
+                <ScalarProperty Name="Id_consultanti" ColumnName="Id_consultanti" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="Prenume" ColumnName="Prenume" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="datbModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Id_consultanti" ColumnName="Id_consultanti" />
+                <ScalarProperty Name="Id_orase" ColumnName="Id_orase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
